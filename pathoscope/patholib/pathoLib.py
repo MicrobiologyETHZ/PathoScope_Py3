@@ -134,7 +134,7 @@ note: to be disappeared
 def read_gi_taxid_nucldmp_max(gi2taxDump):
 	loadSuffix='maxGi'
 	file2sv=gi2taxDump+'_'+loadSuffix
-	print "find max gi..."
+	print("find max gi...")
 	if not os.path.isfile(file2sv):
 
 		cmd='tail -n 1 %s | awk -F\"\\t\" \'{print $1}\'' % gi2taxDump
@@ -147,7 +147,7 @@ def read_gi_taxid_nucldmp_max(gi2taxDump):
 	else:
 		with open(file2sv) as f:
 			mxGi=pickle.load(f)
-	print "done!"
+	print("done!")
 	return mxGi
 	
 #=================================
@@ -169,8 +169,8 @@ note:
 def gi2taxid_offline(mxGi,gi2taxDump,rerunF):
 	loadSuffix='gi2tax'
 	file2sv=gi2taxDump+'_'+loadSuffix
-	print "converting gi to taxon_id..."
-	print mxGi
+	print("converting gi to taxon_id...")
+	print(mxGi)
 	
 	if rerunF or (not os.path.isfile(file2sv)):
 		fp=open(gi2taxDump,'r')
@@ -187,7 +187,7 @@ def gi2taxid_offline(mxGi,gi2taxDump,rerunF):
 	else:
 		with open(file2sv,'r') as f:
 			gi2Taxid=pickle.load(f)
-	print "done!"
+	print("done!")
 	return (file2sv,gi2Taxid)
 
 	
@@ -227,7 +227,7 @@ note: to be replaced by taxon_rel_in_hash_mysql()
 '''
 #=================================
 def taxon_rel_in_hash(nodes_fn):
-	print 'storing taxon tree to hash memory...'
+	print('storing taxon tree to hash memory...')
 	fp=open(nodes_fn,'r')
 	TOP_LEVEL=-1
 	[NODE, PARENT]=range(2)
@@ -248,7 +248,7 @@ def taxon_rel_in_hash(nodes_fn):
 			h_tax_node2par[tax[NODE]][0]=TOP_LEVEL
 
 	fp.close()
-	print 'done'
+	print('done')
 	return h_tax_node2par
 	
 #===========================
@@ -309,7 +309,7 @@ def register_fa_category(fa,catTag,ncbiNt_ti,h_tax2cat):
 		if h_rid.get(gi,-1)!=-1:
 			ti=int(mObj.group(1))
 			if ti!=-1:
-				#print ti #debug
+				#print(ti) #debug
 				h_tax2cat[ti]=catTag
 	fp.close()
 	return h_tax2cat
@@ -337,7 +337,7 @@ def get_allsub_taxons_phylo(h_tax_node2par,hiTaxons, exclude_taxon_ids):
 	NA = -1
 	
 	h_tax_node2par_upd={}
-	print 'traversing phylogeny tree to get sub taxonomy ids...'
+	print('traversing phylogeny tree to get sub taxonomy ids...')
 	
 	for node1 in h_tax_node2par:
 		if node1 == TOP_LEVEL0:
@@ -360,7 +360,7 @@ def get_allsub_taxons_phylo(h_tax_node2par,hiTaxons, exclude_taxon_ids):
 			elif search_result==EXCLUDE:#was found prev but not valid
 				break
 			else: # keep going upward..
-				#print 'node=%d' % node
+				#print('node=%d' % node)
 				node=h_tax_node2par.get(node,[TOP_LEVEL,EXCLUDE])[0]
 				if node == TOP_LEVEL:
 					search_result=EXCLUDE
@@ -368,16 +368,16 @@ def get_allsub_taxons_phylo(h_tax_node2par,hiTaxons, exclude_taxon_ids):
 
 		for node2 in nodes_in_trace:
 			h_tax_node2par_upd[node2]=search_result
-	print 'done'
+	print('done')
 	
-	#collect tax_id.fa in each taxon_of_interest to print out
-	print 'printing fa file ...'
+	#collect tax_id.fa in each taxon_of_interest to print(out)
+	print('printing fa file ...')
 	subtax=[]
 	for node in h_tax_node2par_upd:
 		status=h_tax_node2par_upd.get(node)
 		if status==INCLUDE:
 			subtax.append(node)
-	print 'done'
+	print('done')
 	return subtax
 
 def check_if_nt_has_ti(nt):
@@ -387,7 +387,7 @@ def check_if_nt_has_ti(nt):
 	mObj = re.search(r'>ti\|(\d+)\|',i)
 	if mObj:
 			hasTiF=True
-			print '%s has already taxonomy id.' % nt
+			print('%s has already taxonomy id.' % nt)
 	fp.close()
 	return hasTiF
 
@@ -408,7 +408,7 @@ def append_ti_into_fasta_mysql(con, nt, Ti2sel, enable_descF, enable_onlineF,
 		get_all_taxF=True
 
 	
-	print 'selecting some reference genome sequences in [%s]' % nt
+	print('selecting some reference genome sequences in [%s]' % nt)
 	
 	if (invalSelFlag):
 		fp1 = open(noTaxIdFa,'w')
@@ -458,11 +458,11 @@ def append_ti_into_fasta_mysql(con, nt, Ti2sel, enable_descF, enable_onlineF,
 								fp2.write('>ti|%d|org|%s|%s\n%s\n' % (ti, organismName, 
 									r.id, r.seq))
 	
-	print 'check %s' % nt2
+	print('check %s' % nt2)
 	if (invalSelFlag):
 		fp1.close()
-		print 'check %s' % noTaxIdFa
-	print 'done.'
+		print('check %s' % noTaxIdFa)
+	print('done.')
 	
 #=============================
 '''
@@ -506,7 +506,7 @@ def append_ti_into_fasta_hash(nt, gi2taxFn, Ti2sel, enable_descF, enable_onlineF
 	if os.path.exists(nt2):
 		return (nt2,noTaxIdFa)
 		
-	print 'selecting some reference genome sequences in [%s]...' % nt
+	print('selecting some reference genome sequences in [%s]...' % nt)
 	
 	if (invalSelFlag):
 		fp1 = open(noTaxIdFa,'w')
@@ -514,7 +514,7 @@ def append_ti_into_fasta_hash(nt, gi2taxFn, Ti2sel, enable_descF, enable_onlineF
 		with open(nt,'r') as fp:
 			if tiReadyF:
 				for r in seqParse.parse(fp,'fasta'):
-					#print r.id #debug
+					#print(r.id) #debug
 					mObj=re.search(r'ti\|(\d+)\|',r.id)
 					if not mObj:
 						continue
@@ -553,11 +553,11 @@ def append_ti_into_fasta_hash(nt, gi2taxFn, Ti2sel, enable_descF, enable_onlineF
 							else:
 								fp2.write('>ti|%d|%s\n%s\n' % (ti, r.id, r.seq))
 
-	print 'check %s' % nt2
+	print('check %s' % nt2)
 	if (invalSelFlag):
 		fp1.close()
-		print 'check %s' % noTaxIdFa
-	print 'done.'
+		print('check %s' % noTaxIdFa)
+	print('done.')
 
 #======================================
 '''
@@ -640,16 +640,16 @@ def build_innocentive_hg19_tgt_db(ncbiNt,ncbiGi2TaxConvFn,ncbiCatFn,nodes_fn,out
 	hiTaxons=[9606]
 	subTaxons=get_allsub_taxons_phylo(h_tax_node2par,hiTaxons)
 	cat2append='EH';
-	print '----------------\n'
-	print cat2append
+	print('----------------\n')
+	print(cat2append)
 	h_tax2cat2=update_categories(subTaxons,h_tax2cat2,cat2append)
 
 	#7 tag all protozoa sub found from web resources
 	hiTaxons=[5758, 5741, 5794, 35581, 6029, 5878, 5738, 5653, 37104, 6029, 5794, 554915]
 	subTaxons=get_allsub_taxons_phylo(h_tax_node2par,hiTaxons)
 	cat2append='EP'
-	print '----------------\n'
-	print cat2append
+	print('----------------\n')
+	print(cat2append)
 	h_tax2cat2=update_categories(subTaxons,h_tax2cat2,cat2append)
 
 	#8 get all fungi taxon_ids
@@ -658,8 +658,8 @@ def build_innocentive_hg19_tgt_db(ncbiNt,ncbiGi2TaxConvFn,ncbiCatFn,nodes_fn,out
 
 	#8.1 append all fungi taxon_ids to cat (update)
 	cat2append='EF'
-	print '----------------\n'
-	print cat2append
+	print('----------------\n')
+	print(cat2append)
 	h_tax2cat2=update_categories(subTaxons,h_tax2cat2,cat2append)
 
 
@@ -669,8 +669,8 @@ def build_innocentive_hg19_tgt_db(ncbiNt,ncbiGi2TaxConvFn,ncbiCatFn,nodes_fn,out
 	hiTaxons=[2387,36549]
 	subTaxons=get_allsub_taxons_phylo(h_tax_node2par,hiTaxons)
 	cat2append='OPT'
-	print '----------------\n'
-	print cat2append
+	print('----------------\n')
+	print(cat2append)
 	h_tax2cat2=update_categories(subTaxons,h_tax2cat2,cat2append)
 
 	############################################$
@@ -709,7 +709,7 @@ def build_innocentive_hg19_tgt_db(ncbiNt,ncbiGi2TaxConvFn,ncbiCatFn,nodes_fn,out
 #=================================
 def update_categories(taxonIds,h_ti2cat,cat2append):
 	for ti in taxonIds:
-		print ti
+		print(ti)
 		h_ti2cat[ti]=cat2append
 	return h_ti2cat
 
@@ -745,7 +745,7 @@ def csv_update_ti(fp,ti,organism,lineage,pkey):
 def mysql_str_sanity(str2):
 	NAs='X'
 	if not str2:
-		print 'it is empty string!'
+		print('it is empty string!')
 		return NAs
 	str2 = re.sub('\'', '', str2)
 	return str2
@@ -797,7 +797,7 @@ def parse_ncbi_entry(entry):
 			continue
 		if tmp[:10] == "ORGANISM  ":
 			if not organism:
-				#print x[1] #debug
+				#print(x[1]) #debug
 				organism = x[1].split("ORGANISM  ")[1][:-1]
 				organism = mysql_str_sanity(organism)
 				lineage = ''
@@ -807,12 +807,12 @@ def parse_ncbi_entry(entry):
 						lineage += " "
 					lineage += entry[j].strip()
 					j+=1
-					#print entry[j] #debug
+					#print(entry[j]) #debug
 				lineage = mysql_str_sanity(lineage)
 			continue
 		if tmp[:7] == 'source ':
 			if (stbp=='0' or edbp=='0'):
-				#print tmp
+				#print(tmp)
 				mObj=re.search(r'source\s+(\d+)\.\.(\d+)',tmp)
 				if mObj:
 					stbp = mObj.group(1)
@@ -827,10 +827,10 @@ def parse_ncbi_entry(entry):
 			(strand_sub,cds_sub_locs)=parse_gene_location(j,entry)
 			gi_sub,gene_sub,locus_tag_sub,product_sub,protein_id_sub = "0","","","",""
 			cdstmp=[]
-			#print j #debug
-			#print '[t]%s' % tmp #debug
+			#print(j) #debug
+			#print('[t]%s' % tmp) #debug
 			while True and j<E:
-				#print '[%d]%s' % (j,entry[j]) #debug
+				#print('[%d]%s' % (j,entry[j])) #debug
 				if re.search(r'(translation|ORIGIN)',entry[j]):
 					break
 				else:
@@ -838,7 +838,7 @@ def parse_ncbi_entry(entry):
 				j+=1
 
 			for y in cdstmp:
-				#print y #debug
+				#print(y) #debug
 				if y[:5] == "/gene":
 					#gene_sub=y.split('="')[1][:-1]
 					mObj = re.search(r'gene=[\'\"](.+)[\'\"]',y)
@@ -868,7 +868,7 @@ def parse_ncbi_entry(entry):
 					continue 
 				if y[:8] == "/db_xref":
 					if gi_sub=='0':
-						#print y #debug
+						#print(y) #debug
 						mObj=re.search(r'GI:(\d+)',y)
 						if mObj:
 							gi_sub=mObj.group(1)
@@ -1005,7 +1005,7 @@ def gb2prepare_load_data_file(MySqlConf,tiNtDfn,downloadD):
 	fps[DELIM_T]=open(delimT_fn,'w')
 	fps[TAX_T]=open(taxT_fn,'w')
 
-	print 'transferring gene bank report to mysql...'
+	print('transferring gene bank report to mysql...')
 	gbFlatTmp = '%s/gb2process.tmp' % downloadD_gff
 	pkey_anno = 1
 	pkey_delim = 1
@@ -1030,7 +1030,7 @@ def gb2prepare_load_data_file(MySqlConf,tiNtDfn,downloadD):
 			f+=1
 		else:
 			continue
-		print 'processing %s[%d/%d]...' % (gbFlatFn,f,F)
+		print('processing %s[%d/%d]...' % (gbFlatFn,f,F))
 		
 		fp = open(gbFlatTmp,'r')
 		#skipping header
@@ -1046,7 +1046,7 @@ def gb2prepare_load_data_file(MySqlConf,tiNtDfn,downloadD):
 		for x in fp:
 			if re.search(r'^//', x): # Every time we get to a //\n line, we read the current entry and then start collecting a new one.
 				gB = parse_ncbi_entry(entry)
-				#print gB[0] #debug
+				#print(gB[0]) #debug
 				entry=[]
 				#.............................................
 				#0) check if query gi has multiple sub gis
@@ -1081,7 +1081,7 @@ def gb2prepare_load_data_file(MySqlConf,tiNtDfn,downloadD):
 		fp.close()
 		tock=time()
 		elapsed=tock-tick
-		print 'elasped time:[%g]' % elapsed
+		print('elasped time:[%g]' % elapsed)
 	
 	fps[0].close()
 	fps[1].close()
@@ -1091,48 +1091,48 @@ def gb2prepare_load_data_file(MySqlConf,tiNtDfn,downloadD):
 	con = dbUtils.init_mysql_innocentive(MySqlConf,0)
 	with con:
 
-		print 'loading %s...' % (gi_annoT_fn)
+		print('loading %s...' % (gi_annoT_fn))
 		cur=con.cursor()
 		mysql_load_cmd = 'load data local infile \'%s\' into table giAnnoT fields terminated by \'\\t\'' % gi_annoT_fn
 		cur.execute(mysql_load_cmd)
 		cur=con.cursor()
 		mysql_idx_cmd = 'create unique index idx_gi on giAnnoT (gi)'
 		cur.execute(mysql_idx_cmd)
-		print 'done.'
+		print('done.')
 
-		print 'loading %s...' % (delimT_fn)
+		print('loading %s...' % (delimT_fn))
 		cur=con.cursor()
 		mysql_load_cmd = 'load data local infile \'%s\' into table giDelimT fields terminated by \'\\t\'' % delimT_fn
 		cur.execute(mysql_load_cmd)
 		cur=con.cursor()
 		mysql_idx_cmd = 'create index idx_subgi on giDelimT (gi,stbp,edbp)'
 		cur.execute(mysql_idx_cmd)
-		print 'done.'
+		print('done.')
 		
-		print 'computing database size for each taxon id...'
+		print('computing database size for each taxon id...')
 		if False:
 			#collect dbSize for each ti
 			h_ti_dbSz = get_ti_db_size(gi_annoT_fn)
 			update_taxT_fn(h_ti_dbSz,taxT_fn)
 		else:
 			add_dbsize2taxonT(tiNtDfn,taxT_fn)
-		print 'done.'
+		print('done.')
 		
-		print 'loading %s...' % (taxT_fn)
+		print('loading %s...' % (taxT_fn))
 		cur=con.cursor()
 		mysql_load_cmd = 'load data local infile \'%s\' into table cj_taxonT fields terminated by \'\\t\'' % taxT_fn
 		cur.execute(mysql_load_cmd)
 		cur=con.cursor()
 		mysql_idx_cmd = 'create unique index idx_taxon on cj_taxonT (taxon)'
 		cur.execute(mysql_idx_cmd)
-		print 'done.'
+		print('done.')
 		
 	dbUtils.mysql_close(con)
-	print 'done'
+	print('done')
 
 #=====================
 def get_dbsize_tiNtFa(tiNtFa):
-	print 'computing searching space size for each taxonomy id...'
+	print('computing searching space size for each taxonomy id...')
 	h_tiDbSize = {}
 	fp = open(tiNtFa,'r')
 	ti = 0
@@ -1143,7 +1143,7 @@ def get_dbsize_tiNtFa(tiNtFa):
 		else:
 			h_tiDbSize[ti] = h_tiDbSize.get(ti,0) + len(r)
 	fp.close()
-	print 'done.'
+	print('done.')
 	return h_tiDbSize
 	
 #==================
@@ -1207,14 +1207,14 @@ def group_print_ti_cat_fa(catIdx,h_tax2cat,nt_ti,outD):
 		cFn=outD+'/'+c+'.fa'
 		h_cFps[c]=open(cFn,'w')
 
-	print 'grouping sequence into each cat...'
+	print('grouping sequence into each cat...')
 	
 	NOT_AVAIL='X'
 	fp = open(nt_ti,'r')
 	for r in seqParse.parse(fp,'fasta'):
 		mObj=re.search(r'^ti\|(\d+)\|',r.id)
 		ti=int(mObj.group(1))
-		#print ti #debug
+		#print(ti) #debug
 		cat=h_tax2cat.get(ti,NOT_AVAIL)
 		if cat==NOT_AVAIL:
 			#search in phylogeny tree
@@ -1232,7 +1232,7 @@ def group_print_ti_cat_fa(catIdx,h_tax2cat,nt_ti,outD):
 	for c in catIdx:
 		(h_cFps.get(c)).close()
 		
-	print 'done.'
+	print('done.')
 	return (h_tax2cat)
 
 #=================================
@@ -1255,7 +1255,7 @@ def getCatFromTaxid2(ncbiCatFn):
 		fp.close()
 		with open(file2sv,'w') as f:
 			pickle.dump(h_ti2cat,f)
-	print 'done!'
+	print('done!')
 	
 	return (h_ti2cat)
 

@@ -169,7 +169,7 @@ def writeElementXML(element, elementXMLFile):
 	xmlString = ET.tostring(element, encoding="UTF-8", method="xml")
 	xml1 = xml.dom.minidom.parseString(xmlString)
 	prettyXmlString = xml1.toprettyxml(encoding="UTF-8")
-	#print prettyXmlString #debug
+	#print(prettyXmlString) #debug
 	with open(elementXMLFile, 'w') as f:
 		f.write(prettyXmlString)
 	#tree = ET.ElementTree(element)

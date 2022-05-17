@@ -42,7 +42,7 @@ class TestPathoscopeFunctions(unittest.TestCase):
 		ali_file = currentdir + os.sep + 'data' + os.sep + 'ex1.bl8'
 		aliFormat = 2
 		(U, NU, genomes, reads) = PathoID.conv_align2GRmat(ali_file,self.scoreCutoff,aliFormat)
-		print U, NU, genomes, reads
+		print(U, NU, genomes, reads)
 		score = 7036818.21 #Expected score from the alignment file
 		expectedU = {0: [0, score], 1: [0, score]} 
 		self.assertEquals(len(expectedU), len(U), "Failed bl8 Example 1 Unique Reads length Assertion")
@@ -78,7 +78,7 @@ class TestPathoscopeFunctions(unittest.TestCase):
 		ali_file = currentdir + os.sep + 'data' + os.sep + 'ex2.bl8'
 		aliFormat = 2
 		(U, NU, genomes, reads) = PathoID.conv_align2GRmat(ali_file,self.scoreCutoff,aliFormat)
-		print U, NU, genomes, reads
+		print(U, NU, genomes, reads)
 		score = 7036818.21 #Expected score from the alignment file
 		expectedU = {}
 		self.assertEquals(expectedU, U, "Failed bl8 Example 2 Unique Reads Assertion")
@@ -113,7 +113,7 @@ class TestPathoscopeFunctions(unittest.TestCase):
 		ali_file = currentdir + os.sep + 'data' + os.sep + 'ex3.bl8'
 		aliFormat = 2
 		(U, NU, genomes, reads) = PathoID.conv_align2GRmat(ali_file,self.scoreCutoff,aliFormat)
-		print U, NU, genomes, reads
+		print(U, NU, genomes, reads)
 		score = 7036818.21 #Expected score from the alignment file
 		expectedU = {0: [0, score], 1: [0, score], 2: [0, score], 
 			3: [1, score], 4: [1, score]} 
@@ -150,7 +150,7 @@ class TestPathoscopeFunctions(unittest.TestCase):
 		ali_file = currentdir + os.sep + 'data' + os.sep + 'ex4.bl8'
 		aliFormat = 2
 		(U, NU, genomes, reads) = PathoID.conv_align2GRmat(ali_file,self.scoreCutoff,aliFormat)
-		print U, NU, genomes, reads
+		print(U, NU, genomes, reads)
 		score = 7036818.21 #Expected score from the alignment file
 		expectedU = {2: [0, score]}
 		self.assertEquals(len(expectedU), len(U), "Failed bl8 Example 4 Unique Reads length Assertion")
@@ -187,7 +187,7 @@ class TestPathoscopeFunctions(unittest.TestCase):
 		ali_file = currentdir + os.sep + 'data' + os.sep + 'ex1.g.sam'
 		aliFormat = 0
 		(U, NU, genomes, reads) = PathoID.conv_align2GRmat(ali_file,self.scoreCutoff,aliFormat)
-		print U, NU, genomes, reads
+		print(U, NU, genomes, reads)
 		expectedU = {0: [0, 1.0], 1: [0, 1.0]} 
 		self.assertEquals(len(expectedU), len(U), "Failed gnusam Example 1 Unique Reads length Assertion")
 		for read in expectedU:
@@ -222,7 +222,7 @@ class TestPathoscopeFunctions(unittest.TestCase):
 		ali_file = currentdir + os.sep + 'data' + os.sep + 'ex2.g.sam'
 		aliFormat = 0
 		(U, NU, genomes, reads) = PathoID.conv_align2GRmat(ali_file,self.scoreCutoff,aliFormat)
-		print U, NU, genomes, reads
+		print(U, NU, genomes, reads)
 		expectedU = {}
 		self.assertEquals(expectedU, U, "Failed gnusam Example 2 Unique Reads Assertion")
 		expectedNU = {0: [[0, 1], [0.5, 0.5], [0.5, 0.5], 0.5], 1: [[0, 1], [0.5, 0.5], [0.5, 0.5], 0.5], 
@@ -254,7 +254,7 @@ class TestPathoscopeFunctions(unittest.TestCase):
 		ali_file = currentdir + os.sep + 'data' + os.sep + 'ex3.g.sam'
 		aliFormat = 0
 		(U, NU, genomes, reads) = PathoID.conv_align2GRmat(ali_file,self.scoreCutoff,aliFormat)
-		print U, NU, genomes, reads
+		print(U, NU, genomes, reads)
 		expectedU = {0: [0, 1.0], 1: [0, 1.0], 2: [0, 1.0], 3: [1, 1.0], 4: [1, 1.0]} 
 		self.assertEquals(len(expectedU), len(U), "Failed gnusam Example 3 Unique Reads length Assertion")
 		for read in expectedU:
@@ -289,7 +289,7 @@ class TestPathoscopeFunctions(unittest.TestCase):
 		ali_file = currentdir + os.sep + 'data' + os.sep + 'ex4.g.sam'
 		aliFormat = 0
 		(U, NU, genomes, reads) = PathoID.conv_align2GRmat(ali_file,self.scoreCutoff,aliFormat)
-		print U, NU, genomes, reads
+		print(U, NU, genomes, reads)
 		expectedU = {2: [1, 0.99]} 
 		self.assertEquals(len(expectedU), len(U), "Failed gnusam Example 4 Unique Reads length Assertion")
 		for read in expectedU:
@@ -323,7 +323,7 @@ class TestPathoscopeFunctions(unittest.TestCase):
 		ali_file = currentdir + os.sep + 'data' + os.sep + 'ex1.sam'
 		aliFormat = 1
 		(U, NU, genomes, reads) = PathoID.conv_align2GRmat(ali_file,self.scoreCutoff,aliFormat)
-		print U, NU, genomes, reads
+		print(U, NU, genomes, reads)
 		scaledScore = 2.6881171418161356e+43 #Expected Re-scaled score
 		expectedU = {0: [0, scaledScore], 1: [0, scaledScore]}
 		self.assertEquals(len(expectedU), len(U), "Failed sam Example 1 Unique Reads length Assertion")
@@ -359,7 +359,7 @@ class TestPathoscopeFunctions(unittest.TestCase):
 		ali_file = currentdir + os.sep + 'data' + os.sep + 'ex2.sam'
 		aliFormat = 1
 		(U, NU, genomes, reads) = PathoID.conv_align2GRmat(ali_file,self.scoreCutoff,aliFormat)
-		print U, NU, genomes, reads
+		print(U, NU, genomes, reads)
 		scaledScore = 2.6881171418161356e+43 #Expected Re-scaled score
 		expectedU = {}
 		self.assertEquals(expectedU, U, "Failed sam Example 2 Unique Reads Assertion")
@@ -394,7 +394,7 @@ class TestPathoscopeFunctions(unittest.TestCase):
 		ali_file = currentdir + os.sep + 'data' + os.sep + 'ex3.sam'
 		aliFormat = 1
 		(U, NU, genomes, reads) = PathoID.conv_align2GRmat(ali_file,self.scoreCutoff,aliFormat)
-		print U, NU, genomes, reads
+		print(U, NU, genomes, reads)
 		scaledScore = 2.6881171418161356e+43 #Expected Re-scaled score
 		expectedU = {0: [0, scaledScore], 1: [0, scaledScore], 2: [0, scaledScore], 3: [1, scaledScore], 4: [1, scaledScore]}
 		self.assertEquals(len(expectedU), len(U), "Failed sam Example 3 Unique Reads length Assertion")
@@ -430,7 +430,7 @@ class TestPathoscopeFunctions(unittest.TestCase):
 		ali_file = currentdir + os.sep + 'data' + os.sep + 'ex4.sam'
 		aliFormat = 1
 		(U, NU, genomes, reads) = PathoID.conv_align2GRmat(ali_file,self.scoreCutoff,aliFormat)
-		print U, NU, genomes, reads
+		print(U, NU, genomes, reads)
 		scaledScore = 2.6881171418161356e+43 #Expected Re-scaled score
 		expectedU = {2: [0, scaledScore]}
 		self.assertEquals(len(expectedU), len(U), "Failed sam Example 4 Unique Reads length Assertion")
@@ -473,7 +473,7 @@ class TestPathoscopeFunctions(unittest.TestCase):
 		genomes = {0:"genome1", 1:"genome3", 2:"genome2"}
 		(initPi, pi, theta, NU) = PathoID.pathoscope_em(U, NU, genomes, 
 			self.maxIter, self.emEpsilon, self.verbose, self.piPrior, self.thetaPrior)
-		print initPi, pi, theta, NU
+		print(initPi, pi, theta, NU)
 		expectedInitPi = [0.6, 0.2, 0.2]
 		for j in range(len(expectedInitPi)):
 			self.assertAlmostEquals(initPi[j], expectedInitPi[j], 4, "Failed EM Example 1 Initial PI Assertion")
@@ -512,7 +512,7 @@ class TestPathoscopeFunctions(unittest.TestCase):
 		genomes = {0:"genome2", 1:"genome1", 2:"genome3"}
 		(initPi, pi, theta, NU) = PathoID.pathoscope_em(U, NU, genomes, 
 			self.maxIter, self.emEpsilon, self.verbose, self.piPrior, self.thetaPrior)
-		print initPi, pi, theta, NU
+		print(initPi, pi, theta, NU)
 		expectedInitPi = [0.2857, 0.4286, 0.2857]
 		for j in range(len(expectedInitPi)):
 			self.assertAlmostEquals(initPi[j], expectedInitPi[j], 4, "Failed EM Example 2 Initial PI Assertion j=%d" %j)
@@ -552,7 +552,7 @@ class TestPathoscopeFunctions(unittest.TestCase):
 		genomes = {0:"genome1", 1:"genome2", 2:"genome3"}
 		(initPi, pi, theta, NU) = PathoID.pathoscope_em(U, NU, genomes, 
 			self.maxIter, self.emEpsilon, self.verbose, self.piPrior, self.thetaPrior)
-		print initPi, pi, theta, NU
+		print(initPi, pi, theta, NU)
 		expectedInitPi = [0.5, 0.375, 0.125]
 		for j in range(len(expectedInitPi)):
 			self.assertAlmostEquals(initPi[j], expectedInitPi[j], 4, "Failed EM Example 3 Initial PI Assertion j=%d" %j)
@@ -588,7 +588,7 @@ class TestPathoscopeFunctions(unittest.TestCase):
 		genomes = {0:"genome4", 1:"genome3", 2:"genome1", 3:"genome2"}
 		(initPi, pi, theta, NU) = PathoID.pathoscope_em(U, NU, genomes, 
 			self.maxIter, self.emEpsilon, self.verbose, self.piPrior, self.thetaPrior)
-		print initPi, pi, theta, NU
+		print(initPi, pi, theta, NU)
 		expectedInitPi = [0.4, 0.3, 0.2, 0.1]
 		for j in range(len(expectedInitPi)):
 			self.assertAlmostEquals(initPi[j], expectedInitPi[j], 4, "Failed EM Example 4 Initial PI Assertion j=%d" %j)
@@ -621,7 +621,7 @@ class TestPathoscopeFunctions(unittest.TestCase):
 		genomes = {0:"genome1", 1:"genome2", 2:"genome3", 3:"genome4"}
 		(initPi, pi, theta, NU) = PathoID.pathoscope_em(U, NU, genomes, 
 			self.maxIter, self.emEpsilon, self.verbose, self.piPrior, self.thetaPrior)
-		print initPi, pi, theta, NU
+		print(initPi, pi, theta, NU)
 		expectedInitPi = [1.0, 0.0, 0.0, 0.0]
 		expectedPi = [1.0, 0.0, 0.0, 0.0]
 		expectedTheta = [0.0, 0.0, 0.0, 0.0]

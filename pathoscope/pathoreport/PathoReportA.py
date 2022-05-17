@@ -163,8 +163,8 @@ def get_genome_annotation_in_mysql(\
 			if entr:
 				#subgi2query=[]
 				#subgiAnnot=[]
-				#print r.id #debug
-				#print covRange #debug
+				#print(r.id) #debug
+				#print(covRange) #debug
 				for j in entr: #select which subgi sits within the covered genomic regions
 					aStbp=int(j[STBP]); aEdbp=int(j[EDBP])
 
@@ -175,7 +175,7 @@ def get_genome_annotation_in_mysql(\
 					reportA=False
 					
 					for i in range(C):
-						#print '[subgi%s:%d - %d][cov:%d-%d]' % (gi,aStbp,aEdbp,covRange[START][i],covRange[END][i])
+						#print('[subgi%s:%d - %d][cov:%d-%d]' % (gi,aStbp,aEdbp,covRange[START][i],covRange[END][i]))
 						notCoveredA -= pathoUtilsA.segments_intersect(aStbp,aEdbp,covRange[i][START],covRange[i][END])
 						if notCoveredA<minCoveredA2:
 							reportA=True
@@ -248,7 +248,7 @@ def selectConsensusContigs(fqRec,minContigLen,kolCompxCutoff):
 	covRanges=[]
 	
 	rSeq = str(fqRec.seq)
-	#print rSeq #debug
+	#print(rSeq) #debug
 	tmp=[match.start()+1 for match in re.finditer('^[^nN]|[nN][^nN]',rSeq)]
 	if not tmp:
 		return covRanges2

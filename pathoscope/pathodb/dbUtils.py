@@ -27,7 +27,7 @@ import os, pickle
 try:
 	import MySQLdb as mdb
 except ImportError:
-	print "Running without mySQLdb library"
+	print("Running without mySQLdb library")
 
 #===============================================
 '''
@@ -52,7 +52,7 @@ def mysql_update_anno_gi2(con,gi,ref_name,seq_len,taxon,product,has_sub):
 	with con:
 		cur=con.cursor()
 		mysql_ins_cmd="insert into giAnnoT(gi,ref_name,seq_len,taxon,product,has_sub) values(%d,\'%s\',%d,%d,\'%s\',%d)" % (gi,ref_name,seq_len,taxon,product,has_sub)
-		#print mysql_ins_cmd #debug
+		#print(mysql_ins_cmd) #debug
 		cur.execute(mysql_ins_cmd)
 		
 		
@@ -81,11 +81,11 @@ def mysql_update_anno_gi(con,gi,ref_name,seq_len,taxon,product,has_sub):
 			if set_cmd:
 				set_cmd_str = ",".join(set_cmd)
 				mysql_upd_cmd="update giAnnoT set %s where gi = %d" % (set_cmd_str,gi)
-				#print mysql_upd_cmd #debug
+				#print(mysql_upd_cmd) #debug
 				cur.execute(mysql_upd_cmd)
 		else:
 			mysql_ins_cmd="insert into giAnnoT(gi,ref_name,seq_len,taxon,product,has_sub) values(%d,\'%s\',%d,%d,\'%s\',%d)" % (gi,ref_name,seq_len,taxon,product,has_sub)
-			#print mysql_ins_cmd #debug
+			#print(mysql_ins_cmd) #debug
 			cur.execute(mysql_ins_cmd)
 			
 			
@@ -108,7 +108,7 @@ def mysql_update_ti(con,ti,organism,lineage):
 				cur.execute(mysql_upd_cmd)
 		else: #first time so it will register
 			mysql_ins_cmd="insert into cj_taxonT(taxon,organism,lineage) values(%d,\'%s\',\'%s\')" % (ti,organism,lineage)
-			#print mysql_ins_cmd #debug
+			#print(mysql_ins_cmd) #debug
 			cur.execute(mysql_ins_cmd)
 	return ti
 	
@@ -142,21 +142,21 @@ def init_mysql_innocentive(MySqlConf,reset_table):
 		con = mdb.connect(host=MySqlConf[HOST_NAME],port=MySqlConf[MYSQL_PORT],user=MySqlConf[USER],passwd=MySqlConf[PASSWORD],db=MySqlConf[DEFAULT_DB])
 		#con = mdb.connect(hostname,user,passwd)
 	except:
-		print 'DB connection error. Make sure that you install pathoDB and your mysql credential is correct.'
+		print('DB connection error. Make sure that you install pathoDB and your mysql credential is correct.')
 		con = ''
 		return con
 	with con:
 		cur = con.cursor()
 		if reset_table==0:
 			query ='use %s' % inno_db
-			print query
+			print(query)
 			cur.execute(query)
 			return con
 
 		query = 'create database IF NOT EXISTS %s' % inno_db
 		cur.execute(query)
 		query ='use %s' % inno_db
-		print query
+		print(query)
 		cur.execute(query)
 		
 		#------------------
@@ -235,7 +235,7 @@ def mysql_close(con):
 		cursor=con.cursor()
 		cursor.close()
 		con.close()
-		print 'close db'
+		print('close db')
 
 		
 #=================================
@@ -261,7 +261,7 @@ def get_refname_product_mysql(con, gis):
 #=================================
 def taxon_rel_in_hash_mysql(con, workD):
 	
-	print 'storing taxon tree to hash memory...'
+	print('storing taxon tree to hash memory...')
 	
 	TOP_LEVEL=-1
 	[NODE, PARENT]=range(2)
@@ -295,7 +295,7 @@ def taxon_rel_in_hash_mysql(con, workD):
 					h_tax_node2par[tax[NODE]][0]=TOP_LEVEL
 
 		else:
-			print 'check your taxonomy table in pathodb database!'
+			print('check your taxonomy table in pathodb database!')
 
 		with open(node2par_pyv,'w') as f:
 			pickle.dump(h_tax_node2par,f)
@@ -328,10 +328,10 @@ def mysql_update_anno_sub_gi(con,gi,ref_name,taxon,product,gene,protein_id):
 			if set_cmd:
 				set_cmd_str = ",".join(set_cmd)
 				mysql_upd_cmd="update giAnnoT set %s where gi = %d" % (set_cmd_str,gi)
-				#print mysql_upd_cmd #debug
+				#print(mysql_upd_cmd) #debug
 				cur.execute(mysql_upd_cmd)
 		else:
 			mysql_ins_cmd="insert into giAnnoT(gi,ref_name,taxon,product,gene,protein_id) values(%d,\'%s\',%d,\'%s\',\'%s\',\'%s\')" % (gi,ref_name,taxon,product,gene,protein_id)
-			#print mysql_ins_cmd #debu
+			#print(mysql_ins_cmd) #debu
 			cur.execute(mysql_ins_cmd)
 			

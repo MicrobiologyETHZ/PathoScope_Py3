@@ -52,7 +52,7 @@ def kolmogorov(s):
 	compr = zlib.compress(s)
 	c = float(len(compr))
 	kCompx = c/l
-	#print kCompx #debug
+	#print(kCompx) #debug
 	return kCompx
 
 def separateDirFn(fullPathFile,delimiter):
@@ -73,7 +73,7 @@ def ncbi_eutil(gi,genbank_id,entry2sel):
 	if entry2sel==TAXONOMY_ID:
 		field2sel='TSeq_taxid'
 	
-	#print 'sending query to ncbi eutil %s(gi:%d)' % (genbank_id,gi) #debug
+	#print('sending query to ncbi eutil %s(gi:%d)' % (genbank_id,gi)) #debug
 	
 	queries=[gi,genbank_id]
 	taxonId=NOT_VALID
@@ -81,7 +81,7 @@ def ncbi_eutil(gi,genbank_id,entry2sel):
 	for q in queries:
 		curlCmd='curl -s \"http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=%s&rettype=fasta&retmode=xml\" | grep %s | cut -d \'>\' -f 2 | cut -d \'<\' -f 1 | tr -d \"\\n\"' % (q,field2sel)
 		
-		#print curlCmd
+		#print(curlCmd)
 		proc = sp.Popen(curlCmd, stdout=sp.PIPE, shell=True)
 		(msg, _) = proc.communicate() # err is the second object returned
 		msg=msg.strip()
@@ -104,10 +104,10 @@ def ex_wget_download(protozoaD):
 		cmd = '%scat %s/protozoa*.fna > %s/ncbi_protozoa.fa\n' % (cmd,protozoaD,protozoaD)
 		cmd = '%srm -rf %s/protozoa*.fna\n' % (cmd,protozoaD)
 		
-		print 'downloading data...'
-		print cmd
+		print('downloading data...')
+		print(cmd)
 		os.system(cmd)
-		print 'done'
+		print('done')
 	
 	return protozoaDfn 
 
@@ -137,12 +137,12 @@ def wget_download2(url,downFbase,downExt,downloadD,operation,outName):
 	
 	if operation=='select':
 		cmd='%s %s %s' % (cmd, extOp, downFn)
-		print cmd
+		print(cmd)
 		os.system(cmd)
 		outDfn='%s/%s' % (downloadD,outName)
 	else:
 		cmd = 'ls -la %s' % downloadD
-		print cmd
+		print(cmd)
 		os.system(cmd)
 		outDfn='X'
 		
