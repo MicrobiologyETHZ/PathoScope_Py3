@@ -320,7 +320,7 @@ def computeBestHit(U, NU, genomes, read):
 def write_tsv_report(finalReport, nR, nG, pi, genomes, initPi, bestHitInitial, bestHitInitialReads, 
 		bestHitFinal, bestHitFinalReads, level1Initial, level2Initial, level1Final, level2Final,
 		header, noCutOff):
-	with open(finalReport, 'wb') as oFp:
+	with open(finalReport, 'w') as oFp:
 		tmp = zip(pi,genomes, initPi, bestHitInitial, bestHitInitialReads, bestHitFinal, 
 			bestHitFinalReads, level1Initial, level2Initial, level1Final, level2Final)
 		tmp = sorted(tmp,reverse=True) # Sorting based on Final Guess
